@@ -1,0 +1,88 @@
+<!-- Remember to add aria label back...  -->
+<%- include("partials/header") %>
+    <div class="container px-2 py-5">
+        <h1 class="pb-2 border-bottom">My Penpals</h1>
+        <div class="row pt-4">
+            <div class="col-4">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <% penpalList.forEach(function(penpal, index) { %>
+                        <% if (index===0) { %>
+                            <a class="list-group-item list-group-item-action active" data-bs-toggle="list"
+                                href="#<%=penpal.penpalName%>" role="tab">
+                                <%= penpal.penpalName %>
+                            </a>
+                        <% } else { %>
+                            <a class="list-group-item list-group-item-action" data-bs-toggle="list"
+                                href="#<%=penpal.penpalName%>" role="tab">
+                                <%= penpal.penpalName %>
+                            </a>
+                        <% } %>
+                    <% }); %>
+                </div>
+            </div>
+            
+            <div class="col-8">
+                <div class="tab-content" id="nav-tabContent">
+                    <% penpalList.forEach(function(penpal, index) { %>
+                        <div 
+                        <% if (index===0) { %> 
+                            class="tab-pane fade show active" 
+                            <%} else { %> 
+                                class="tab-pane fade show" 
+                            <% } %> 
+                            id="<%=penpal.penpalName%>" role="tabpanel"> 
+                            <!-- Model and Button-->
+                            <card class="card px-4 py-4 mb-4">
+                                <h3><%=penpal.penpalName%></h3>
+                                <p><%= penpal.penpalAbout%>
+                                </p>
+                                <a href="profile/<%=penpal.penpalName%>">...</a>
+                            </card>
+                            <button type="button" class="btn btn-light mb-4" data-bs-toggle="modal" data-bs-target="#writeLetter_<%= penpal.penpalName %>">
+                                Write a New Letter <img src="/icons/pen.svg" alt="icon of pen">
+                            </button>
+                            <form action="/delete_penpal" method="post">
+                                <button type="submit" class="btn btn-light mb-4" name="penpalName" value="<%=penpal.penpalName%>">
+                                    Delete penpal
+                                </button>
+                            </form>
+                            <div class="modal fade" id="writeLetter_<%= penpal.penpalName %>" tabindex="-1" aria-labelledby="writeLetterLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="writeLetterLabel">Compose new letter</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/write_letter" method="post">
+                                                <textarea class="form-control" name="letter_content"></textarea>
+                                                <input type="hidden" name="sent_to" value="<%= penpal.penpalName %>">
+                                                <button type="submit">Send Letter</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save</button>
+                                            <button type="button" class="btn btn-primary">Send Letter (don't click!)</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Letter -->
+                            <% penpal.letterList.forEach(function(letter) { %>
+                                <div class="card px-4 py-4 mb-4">
+                                    <h3>
+                                        <%= letter.title %>
+                                    </h3>
+                                    <p>sender: <%= letter.senderName %>
+                                    </p>
+                                    <p>
+                                        <%= letter.content %>
+                                    </p>
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+<%- include("partials/footer") %>

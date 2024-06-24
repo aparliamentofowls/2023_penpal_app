@@ -1,0 +1,58 @@
+<%- include("partials/header") %>
+    <div class="container py-5 px-5">
+        <h1 class="pb-2 border-bottom">Browse</h1>  
+        <div class="row mb-5" 
+             data-masonry='{"percentPosition": true }'>
+            <div class="col-6">
+                <% userProfileList.forEach(function(userProfile, index) { %>
+                    <% if (index % 2 === 0) { %>
+                        <div class="card mb-4">
+                            <img class="mx-auto profile_img px-2 py-2" src="/images/anon_profile.jpg">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= userProfile.username %></h5>
+                                <p class="card-text"><%= userProfile.about %></p>
+                                <a href="/profile/<%=userProfile.username%>" class="btn btn-primary">See Profile</a>
+                                <% if (userProfile.username !== me) { %>
+                                    <a href="/write_letter/<%=userProfile.username%>" class="btn btn-primary">Write Letter</a>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }); %>
+            </div>
+            <div class="col-6">
+                <% userProfileList.forEach(function(userProfile, index) { %>
+                    <% if (index % 2 === 1) { %>
+                        <div class="card mb-4">
+                            <img class="mx-auto profile_img px-2 py-2" src="/images/anon_profile.jpg">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= userProfile.username %></h5>
+                                <p class="card-text"><%= userProfile.about %></p>
+                                <a href="/profile/<%=userProfile.username%>" class="btn btn-primary">See Profile</a>
+                                <% if (userProfile.username !== me) { %>
+                                    <a href="/write_letter/<%=userProfile.username%>" class="btn btn-primary">Write Letter</a>
+                                <% } %>                            </div>
+                        </div>
+                    <% } %>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- <% 
+let evenProfiles = userProfileList.filter((_, index) => index % 2 === 0);
+let oddProfiles = userProfileList.filter((_, index) => index % 2 === 1);
+%>
+
+<div class="col-6">
+    <% evenProfiles.forEach(function(userProfile) { %>
+         Profile card rendering logic here for even profiles
+    <% }); %>
+</div>
+<div class="col-6">
+    <% oddProfiles.forEach(function(userProfile) { %>
+       Profile card rendering logic here for odd profiles 
+    <% }); %>
+</div> -->

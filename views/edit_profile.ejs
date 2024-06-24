@@ -1,0 +1,58 @@
+<%- include("partials/header") %>
+    <div class="container py-5 px-5">
+        <div class="row">
+            <div class="col-4">
+                <div class="card text-center px-4 py-3">
+                    <img class="mx-auto profile_img px-2 py-2" src="/images/anon_profile.jpg">
+                    <h3><%= username%></h3>
+                    <h5>Currently accepting/not accepting penpal requests</h5>
+                    <% if (userProfileInfo.age !== null) { %>
+                        <h5><%= userProfileInfo.age %> years old</h5>
+                    <% } %>
+                    <% if (userProfileInfo.from !== null) { %>
+                        <h5>from <%= userProfileInfo.from %> </h5>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="card px-4 py-3 mb-4">
+                    <h5>About Me</h5>
+                    <textarea class="form-control" id="about" name="about"><%= userProfileInfo.about %></textarea>
+                </div>
+                <div class="card px-4 py-3 mb-4">
+                    <h5>My interests</h5>
+                    <div>
+                        <div class="d-flex flex-row">
+                            <select class="form-select" id="newInterest">
+                                <option value="Reading">Reading</option>
+                                <option value="Writing">Writing</option>
+                                <option value="Hiking">Hiking</option>
+                                <option value="Films">Films</option>
+                                <option value="Video Games">Video Games</option>
+                            </select>
+                            <button class="btn btn-dark" onclick="addNewInterest()">Add</button>
+                        </div>
+                        <div>
+                            <ul id="selectedInterests"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card px-4 py-3 mb-4">
+                    <h5>Languages</h5>
+                    <div class="d-flex flex-row">
+                        <% userProfileInfo.languages.forEach(function(lang) { %>
+                            <span class="pe-2">
+                                <%= lang %>
+                            </span>
+                        <% }); %>
+                    </div>
+                </div>
+                <form action="/edit_profile" method="POST">
+                    <input type="hidden" id="updatedAbout" name="updatedAbout">
+                    <input type="hidden" id="updatedInterests" name="updatedInterests">
+                    <button id="submitChanges" class="btn btn-dark" onclick="saveAbout()">Submit Changes</button>
+                </form>
+            </div>
+        </div>
+    <script src="/js/script.js"></script>
+<%- include("partials/footer") %>

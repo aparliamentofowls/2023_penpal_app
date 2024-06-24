@@ -1,0 +1,10 @@
+<%- include("partials/header") %>
+<div class="container">
+    <h1>Write Letter</h1>
+    <form action="/write_letter%>" method="post">
+        <textarea class="form-control" name="letter_content"></textarea>
+        <input type="hidden" name="sent_to" value="<%= penpalName %>">
+        <button type="submit">Send Letter</button>
+    </form>
+</div>
+<%- include("partials/footer") %>

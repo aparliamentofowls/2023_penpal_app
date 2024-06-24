@@ -1,0 +1,31 @@
+body {
+    background-color: antiquewhite;
+}
+
+.icon {
+    height: 30px;
+}
+
+/* https://stackoverflow.com/questions/51039652/how-to-convert-black-icon-to-white-using-css-for-ie11 */
+.nav-link.active .icon{
+    filter: brightness(0) invert(1);
+}
+
+.big {
+    width: 100px;
+}
+
+.profile_img {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+}
+
+.input_fields {
+    display: block;
+}
+
+.attribution {
+    font-size: x-small;
+    color: gray;
+}
